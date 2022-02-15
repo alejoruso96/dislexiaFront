@@ -1,0 +1,49 @@
+{
+  "gamewords": [
+    {
+      "completeword": "CAMISETA",
+      "incompleteword": "CAMI TA",
+      "option": [
+        { "text": "MI", "val": true },
+        { "text": "TI" },
+        { "text": "NI" }
+      ]
+    },
+    {
+      "completeword": "PECERA",
+      "incompleteword": "PE RA",
+      "option": [
+        { "text": "SE"},
+        { "text": "CE", "val": true  },
+        { "text": "TE" }
+      ]
+    },
+    {
+        "completeword": "FLORERO",
+        "incompleteword": "FLO RO",
+        "option": [
+          { "text": "RE", "val": true },
+          { "text": "ME" },
+          { "text": "NE" }
+        ]
+      },
+      {
+        "completeword": "CAMIONETA",
+        "incompleteword": "CAMIO TA",
+        "option": [
+          { "text": "RE"},
+          { "text": "ME" },
+          { "text": "NE", "val": true }
+        ]
+      },{
+        "completeword": "TELEFONO",
+        "incompleteword": "TELE NO",
+        "option": [
+          { "text": "MO"},
+          { "text": "PO" },
+          { "text": "FO", "val": true }
+        ]
+      }
+      
+  ]
+}

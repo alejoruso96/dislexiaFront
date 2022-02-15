@@ -1,0 +1,50 @@
+{
+    "gamewords": [
+      {
+        "completeword": "DIADEMA",
+        "incompleteword": "DI MA",
+        "option": [
+          { "text": "ADE", "val": true },
+          { "text": "ADO" },
+          { "text": "ODA" }
+        ]
+      },
+      {
+        "completeword": "POMADA",
+        "incompleteword": "POM",
+        "option": [
+          { "text": "EDA"},
+          { "text": "ADA", "val": true  },
+          { "text": "IDA" }
+        ]
+      },
+      {
+          "completeword": "MONEDA",
+          "incompleteword": "MONE",
+          "option": [
+            { "text": "DA", "val": true },
+            { "text": "DRA" },
+            { "text": "DIR" }
+          ]
+        },
+        {
+          "completeword": "CAMIONETA",
+          "incompleteword": "CAMIO TA",
+          "option": [
+            { "text": "RE"},
+            { "text": "ME" },
+            { "text": "NE", "val": true }
+          ]
+        },{
+          "completeword": "TELEFONO",
+          "incompleteword": "TELE NO",
+          "option": [
+            { "text": "MO"},
+            { "text": "PO" },
+            { "text": "FO", "val": true }
+          ]
+        }
+        
+    ]
+  }
+  
