@@ -10,7 +10,6 @@ export default class Card extends Component {
     }
 
     handleClick = () => {
-        console.log(this.props);
         this.props.handleClick(this.props.content);
     };
 
