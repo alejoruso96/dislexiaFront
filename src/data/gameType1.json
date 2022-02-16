@@ -1,0 +1,74 @@
+{
+  "L1": [
+    {
+      "completeWord": "CAMISETA",
+      "auxiliaryWord": "CA,MI,SE,TA",
+      "initialState": ["CA", "", "SE", "TA"],
+      "options": [
+        {"text": "MI", "val": true},
+        {"text": "TI"},
+        {"text": "NI"}
+      ]
+    },
+    {
+      "completeWord": "PECERA",
+      "auxiliaryWord": "PE,CE,RA",
+      "initialState": ["PE", "", "RA"],
+      "options": [
+        {"text": "CE", "val": true},
+        {"text": "SE"},
+        {"text": "TE"}
+      ]
+    },
+    {
+      "completeWord": "FLORERO",
+      "auxiliaryWord": "FLO,RE,RO",
+      "initialState": ["FLO", "", "RO"],
+      "options": [
+        {"text": "RE", "val": true},
+        {"text": "ME"},
+        {"text": "NE"}
+      ]
+    },
+    {
+      "completeWord": "CAMIONETA",
+      "auxiliaryWord": "CA,MIO,NE,TA",
+      "initialState": ["CAMIO", "", "TA"],
+      "options": [
+        {"text": "NE", "val": true},
+        {"text": "ME"},
+        {"text": "PE"}
+      ]
+    },
+    {
+      "completeWord": "TELÉFONO",
+      "auxiliaryWord": "TE,LÉ,FO,NO",
+      "initialState": ["TELÉ", "", "NO"],
+      "options": [
+        {"text": "FO", "val": true},
+        {"text": "MO"},
+        {"text": "PO"}
+      ]
+    },
+    {
+      "completeWord": "CAPITAL",
+      "auxiliaryWord": "CA,PI,TAL",
+      "initialState": ["CA", "", "TAL"],
+      "options": [
+        {"text": "PI", "val": true},
+        {"text": "TI"},
+        {"text": "SI"}
+      ]
+    },
+    {
+      "completeWord": "CAMINO",
+      "auxiliaryWord": "CA,MI,NO",
+      "initialState": ["CA", "", "NO"],
+      "options": [
+        {"text": "MI", "val": true},
+        {"text": "NI"},
+        {"text": "TI"}
+      ]
+    }
+  ]
+}

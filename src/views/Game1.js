@@ -9,29 +9,42 @@ import {Redirect} from "react-router-dom";
 import axios from "axios";
 
 import "./game1.css";
+import Data from '../data/gameType1.json';
 
 export default class Game1 extends Component {
 
     constructor() {
         super();
+        const dataByLevel = Data["L1"];
+        const wordIndex = [];
+        let textToRead = "";
+        const gameWords = [];
+        const wordOptions = [];
+        while (wordIndex.length <= 4) {
+            const index = Math.floor(Math.random() * (dataByLevel.length));
+            if (!wordIndex.includes(index)) {
+                const object = dataByLevel[index];
+
+                if (textToRead === "")
+                    textToRead =
+                        dataByLevel[index].initialState
+                            .join()
+                            .replaceAll(",", "");
+
+                wordIndex.push(index);
+                gameWords.push(object.initialState);
+                wordOptions.push(object.options.sort(
+                    function () {
+                        return Math.random() - 0.5
+                    }
+                ));
+            }
+        }
+
         this.state = {
-            textToRead: "CASETA",
-            gameWords: [
-                ["CA", "", "SE", "TA"],
-                ["PE", "", "RA"],
-                ["FLO", "", "RO"],
-                ["CAMIO", "", "TA"],
-                ["TELÉ", "", "NO"],
-                ["", "", ""],
-            ],
-            wordOptions: [
-                [{text: "MI", val: true}, {text: "TI"}, {text: "NI"}],
-                [{text: "SE"}, {text: "CE", val: true}, {text: "TE"}],
-                [{text: "RE", val: true}, {text: "ME"}, {text: "NE"}],
-                [{text: "ME"}, {text: "PE"}, {text: "NE", val: true}],
-                [{text: "MO"}, {text: "PO"}, {text: "FO", val: true}],
-                [{text: ""}, {text: ""}, {text: ""}],
-            ],
+            textToRead: textToRead,
+            gameWords: [...gameWords, ["", "", ""]],
+            wordOptions: [...wordOptions, [{text: ""}, {text: ""}, {text: ""}]],
             score: {correct: 0, incorrect: 0},
             redirect: null,
             images: [
@@ -48,7 +61,7 @@ export default class Game1 extends Component {
 
         this.setState({
             gameWords: updatedState,
-            textToRead:  updatedState[0].join(''),
+            textToRead: updatedState[0].join(''),
         });
     };
 

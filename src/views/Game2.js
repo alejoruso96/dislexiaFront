@@ -6,96 +6,36 @@ import Card from "../components/CardsList/Card";
 import "./game2.css";
 import Swal from "sweetalert2";
 import axios from "axios";
+import Data from "../data/gameType1.json";
 
 export default class Game2 extends Component {
 
     constructor() {
         super();
+        const dataByLevel = Data["L1"];
+        const wordIndex = [];
+        const options = [];
+        const correctWord = [];
+        let tasks = undefined;
+
+        while (wordIndex.length <= 4) {
+            const index = Math.floor(Math.random() * (dataByLevel.length));
+            if (!wordIndex.includes(index)) {
+                const object = dataByLevel[index];
+                const formattedObject = this.formatGame2Data(object.auxiliaryWord);
+
+                (wordIndex.length === 0) ?
+                    tasks = formattedObject : options.push(formattedObject);
+
+                wordIndex.push(index);
+                correctWord.push(object.auxiliaryWord);
+            }
+        }
+
         this.state = {
-            syllableToRead: "",
-            tasks: [
-                {
-                    taskName: "MI",
-                    type: "inProgress",
-                },
-                {
-                    taskName: "SE",
-                    type: "inProgress",
-                },
-                {
-                    taskName: "TA",
-                    type: "inProgress",
-                },
-                {
-                    taskName: "CA",
-                    type: "inProgress",
-                },
-            ],
+            tasks: tasks,
             options: [
-                [
-                    {
-                        taskName: "PE",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "CE",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "RA",
-                        type: "inProgress",
-                    },
-                ],
-                [
-                    {
-                        taskName: "RO",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "RE",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "FLO",
-                        type: "inProgress",
-                    },
-                ],
-                [
-                    {
-                        taskName: "CA",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "TA",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "NE",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "MIO",
-                        type: "inProgress",
-                    },
-                ],
-                [
-                    {
-                        taskName: "FO",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "LÉ",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "TE",
-                        type: "inProgress",
-                    },
-                    {
-                        taskName: "NO",
-                        type: "inProgress",
-                    },
-                ],
+                ...options,
                 [
                     {
                         taskName: "",
@@ -103,17 +43,25 @@ export default class Game2 extends Component {
                     },
                 ],
             ],
-            correctWord: [
-                "CA,MI,SE,TA",
-                "PE,CE,RA",
-                "FLO,RE,RO",
-                "CA,MIO,NE,TA",
-                "TE,LÉ,FO,NO",
-            ],
+            correctWord: correctWord,
             completedWord: [],
             score: {correct: 0, incorrect: 0},
             redirect: null,
         }
+    }
+
+    formatGame2Data(auxiliaryWord) {
+        return auxiliaryWord.split(",")
+            .map((syllable) => {
+                return {
+                    taskName: syllable,
+                    type: "inProgress"
+                };
+            }).sort(
+                function () {
+                    return Math.random() - 0.5
+                }
+            );
     }
 
     onDragStart = (event, taskName) => {
@@ -280,7 +228,7 @@ export default class Game2 extends Component {
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect}/>;
         }
-        var tasks = {
+        const tasks = {
             inProgress: [],
             Done: [],
         };
