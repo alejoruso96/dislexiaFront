@@ -13,6 +13,8 @@ import MainPage from "./views/MainPage";
 import Stadistics from "./views/Stadistics";
 import Navbar from "./components/Navbar";
 import {WithHooks} from "./views/WithHooks";
+import RecoverPassword from "./views/RecoverPassword";
+import ForgotPassword from "./views/ForgotPassword";
 
 function App() {
   return (
@@ -22,6 +24,12 @@ function App() {
         <Switch>
           <Route exact path="/">
             <LoginRegister />
+          </Route>
+          <Route exact path="/forgot-password">
+            <ForgotPassword />
+          </Route>
+          <Route exact path="/new-password/:token">
+            <RecoverPassword />
           </Route>
           <Route exact path="/main-page">
             <MainPage />

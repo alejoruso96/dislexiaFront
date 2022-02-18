@@ -43,6 +43,7 @@ export default class Game1 extends Component {
 
         this.state = {
             textToRead: textToRead,
+            indexToComplete: gameWords[0].findIndex(e => e === ""),
             gameWords: [...gameWords, ["", "", ""]],
             wordOptions: [...wordOptions, [{text: ""}, {text: ""}, {text: ""}]],
             score: {correct: 0, incorrect: 0},
@@ -57,7 +58,8 @@ export default class Game1 extends Component {
 
     handleClick = (content) => {
         let updatedState = this.state.gameWords;
-        updatedState[0][1] = content;
+        console.log(this.state.indexToComplete);
+        updatedState[0][this.state.indexToComplete] = content;
 
         this.setState({
             gameWords: updatedState,
@@ -72,8 +74,10 @@ export default class Game1 extends Component {
         );
         if (this.state.gameWords[0][1] === correct.text) {
             alert = {icon: "success", title: "Correcto"};
+            const gameWords = this.state.gameWords.slice(1, this.state.gameWords.length);
             this.setState({
-                gameWords: this.state.gameWords.slice(1, this.state.gameWords.length),
+                indexToComplete: gameWords[0].findIndex(e => e === ""),
+                gameWords: gameWords,
                 wordOptions: this.state.wordOptions.slice(
                     1,
                     this.state.wordOptions.length
@@ -206,7 +210,7 @@ export default class Game1 extends Component {
             } else {
                 const found = this.state.wordOptions[0].find(
                     (element) => element.text === item
-                );
+                ); // Possibly requires a change in logic.
                 if (found !== undefined) {
                     return (
                         <p

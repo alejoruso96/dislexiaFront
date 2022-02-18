@@ -31,7 +31,7 @@ export default class Game4 extends Component {
             correctWord: correctWord,
             correctListIndexes: correctListIndexes,
             incorrectListIndexes: incorrectListIndexes,
-            score: {correct: 0, incorrect: 0},
+            score: {correct: 1, incorrect: 0},
             redirect: null,
         };
     }

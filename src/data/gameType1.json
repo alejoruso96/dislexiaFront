@@ -41,33 +41,14 @@
       ]
     },
     {
-      "completeWord": "TELÉFONO",
-      "auxiliaryWord": "TE,LÉ,FO,NO",
-      "initialState": ["TELÉ", "", "NO"],
+      "completeWord": "PARAGUAS",
+      "auxiliaryWord": "PA,RA,GUAS",
+      "initialState": ["PA", "RA", ""],
       "options": [
-        {"text": "FO", "val": true},
-        {"text": "MO"},
-        {"text": "PO"}
-      ]
-    },
-    {
-      "completeWord": "CAPITAL",
-      "auxiliaryWord": "CA,PI,TAL",
-      "initialState": ["CA", "", "TAL"],
-      "options": [
-        {"text": "PI", "val": true},
-        {"text": "TI"},
-        {"text": "SI"}
-      ]
-    },
-    {
-      "completeWord": "CAMINO",
-      "auxiliaryWord": "CA,MI,NO",
-      "initialState": ["CA", "", "NO"],
-      "options": [
-        {"text": "MI", "val": true},
-        {"text": "NI"},
-        {"text": "TI"}
+        {"text": "GUAS", "val": true},
+        {"text": "JUAS"},
+        {"text": "GAS"},
+        {"text": "JAS"}
       ]
     }
   ]

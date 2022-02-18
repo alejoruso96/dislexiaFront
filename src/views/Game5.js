@@ -5,6 +5,7 @@ import Card from "../components/CardsList/Card";
 import {Redirect} from "react-router-dom";
 import Swal from "sweetalert2";
 import Data from "../data/gameType2.json";
+import axios from "axios";
 
 export default class Game5 extends Component {
 
@@ -30,7 +31,7 @@ export default class Game5 extends Component {
             correctWord: correctWord,
             correctListIndexes: correctListIndexes,
             incorrectListIndexes: incorrectListIndexes,
-            score: {correct: 0, incorrect: 0},
+            score: {correct: 1, incorrect: 0},
             redirect: null,
         };
     }
@@ -100,6 +101,20 @@ export default class Game5 extends Component {
                 showConfirmButton: false,
                 html: `Correctos: <b> 1 punto</b> <br> Incorrectos: <b>${this.state.score.incorrect} puntos</b> ${estrellas}`,
             });
+            axios
+                .post(`http://localhost:4000/api/activities`, {
+                    nombre: "Identificacion Visual 1",
+                    correctas: this.state.score.correct,
+                    incorrectas: this.state.score.incorrect,
+                    idNino: localStorage.getItem("childrenId"),
+                }, {
+                    headers: {
+                        "x-access-token": localStorage.getItem("token")
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
             this.setState({redirect: "/games"});
         } else {
             await Swal.fire({

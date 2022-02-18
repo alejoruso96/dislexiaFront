@@ -35,7 +35,7 @@ export default function MainPage() {
     };
 
     const register = async (user) => {
-        let aux = {...user, supervisor: "61d65309389a7d2dd8212269"};
+        let aux = {...user};
         await axios
             .post("http://localhost:4000/api/user/children", aux,
                 {
