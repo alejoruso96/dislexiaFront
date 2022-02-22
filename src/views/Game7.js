@@ -121,7 +121,7 @@ export default class Game7 extends Component {
             });
             axios
                 .post(`http://localhost:4000/api/activities`, {
-                    nombre: "Identificacion Visual 1",
+                    nombre: "Identificacion y Construccion",
                     correctas: this.state.score.correct,
                     incorrectas: this.state.score.incorrect,
                     idNino: localStorage.getItem("childrenId"),
