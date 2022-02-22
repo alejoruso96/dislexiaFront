@@ -17,6 +17,7 @@
       "options": [
         {"text": "CE", "val": true},
         {"text": "SE"},
+        {"text": "DE"},
         {"text": "TE"}
       ]
     },

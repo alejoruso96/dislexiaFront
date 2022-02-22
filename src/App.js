@@ -6,6 +6,7 @@ import Game3 from "./views/Game3";
 import Game4 from "./views/Game4";
 import Game5 from "./views/Game5";
 import Game6 from "./views/Game6";
+import Game7 from "./views/Game7";
 import Randomwords from "./views/randomwords";
 import GamesMenu from "./views/GamesMenu";
 import LoginRegister from "./views/LoginRegister";
@@ -54,6 +55,9 @@ function App() {
           </Route>
           <Route path="/game6">
             {WithHooks(Game6)}
+          </Route>
+          <Route path="/game7">
+            {WithHooks(Game7)}
           </Route>
           <Route path="/stadistics">
             <Stadistics />

@@ -5,48 +5,44 @@ import ActionButton from "../components/ActionButton";
 import CardsList from "../components/CardsList/CardsList";
 import Swal from "sweetalert2";
 import {Redirect} from "react-router-dom";
+import defaultImage from "../assets/img/games/default.png";
 
 import axios from "axios";
 
 import "./game1.css";
 import Data from '../data/gameType1.json';
 
-export default class Game1 extends Component {
+export default class Game7 extends Component {
 
     constructor() {
         super();
+
         const dataByLevel = Data["L1"];
-        const wordIndex = [];
-        let textToRead = "";
-        const gameWords = [];
-        const wordOptions = [];
-        while (wordIndex.length <= 4) {
-            const index = Math.floor(Math.random() * (dataByLevel.length));
-            if (!wordIndex.includes(index)) {
-                const object = dataByLevel[index];
 
-                if (textToRead === "")
-                    textToRead =
-                        dataByLevel[index].initialState
-                            .join()
-                            .replaceAll(",", "");
-
-                wordIndex.push(index);
-                gameWords.push(object.initialState);
-                wordOptions.push(object.options.sort(
-                    function () {
-                        return Math.random() - 0.5
-                    }
-                ));
-            }
-        }
+        const index = Math.floor(Math.random() * (dataByLevel.length));
+        const object = dataByLevel[index];
+        const textToRead = object.completeWord;
+        const wordOptions = [
+            this.formatGame7Data(object.auxiliaryWord
+            )];
+        const gameWords = [wordOptions[0].map(() => "")];
+        const initialOptions = wordOptions[0]
+            .map(obj => JSON.parse(JSON.stringify(obj)));
+        import('../assets/img/games/' + object.completeWord.toLowerCase() + '.png')
+            .then(image => this.setState({
+                url: image.default
+            }))
+            .catch(() => this.setState({
+                url: defaultImage
+            }));
 
         this.state = {
             textToRead: textToRead,
-            indexToComplete: gameWords[0].findIndex(e => e === ""),
-            gameWords: [...gameWords, ["", "", ""]],
-            wordOptions: [...wordOptions, [{text: ""}, {text: ""}, {text: ""}]],
-            score: {correct: 0, incorrect: 0},
+            indexToComplete: 0,
+            gameWords: [...gameWords],
+            initialOptions: [initialOptions],
+            wordOptions: [...wordOptions.slice()],
+            score: {correct: 1, incorrect: 0},
             redirect: null,
             images: [
                 "https://unsplash.it/400/200",
@@ -54,61 +50,57 @@ export default class Game1 extends Component {
                 "https://picsum.photos/id/237/200/300",
             ],
         };
+    }
 
-        console.log(this.state);
+    formatGame7Data(auxiliaryWord) {
+        return auxiliaryWord.split(",")
+            .map((syllable) => {
+                return {
+                    text: syllable,
+                };
+            }).sort(
+                function () {
+                    return Math.random() - 0.5
+                }
+            );
     }
 
     handleClick = (content) => {
+        const indexOption = this.state.wordOptions[0]
+            .findIndex(o => o.text === content);
+        const newIndex = this.state.indexToComplete + 1;
+
         let updatedState = this.state.gameWords;
-        console.log(this.state.indexToComplete);
         updatedState[0][this.state.indexToComplete] = content;
+        this.state.wordOptions[0].splice(indexOption, 1)
+
+        console.log(this.state.initialOptions[0], this.state.wordOptions[0]);
 
         this.setState({
             gameWords: updatedState,
-            textToRead: updatedState[0].join(''),
+            indexToComplete: newIndex
         });
+
+        if (this.state.wordOptions[0].length === 0) {
+            this.validateAnswer().then();
+        }
     };
 
     validateAnswer = async () => {
-        let alert;
-        const correct = this.state.wordOptions[0].find(
-            (element) => element.val === true
-        );
-        if (this.state.gameWords[0][this.state.indexToComplete] === correct.text) {
-            alert = {icon: "success", title: "Correcto"};
-            const gameWords = this.state.gameWords.slice(1, this.state.gameWords.length);
-            this.setState({
-                indexToComplete: gameWords[0].findIndex(e => e === ""),
-                gameWords: gameWords,
-                wordOptions: this.state.wordOptions.slice(
-                    1,
-                    this.state.wordOptions.length
-                ),
-                score: {
-                    correct: this.state.score.correct + 1,
-                    incorrect: this.state.score.incorrect,
-                },
-            });
-        } else {
-            alert = {icon: "error", title: "Inténtalo de nuevo"};
-            this.setState({
-                score: {
-                    correct: this.state.score.correct,
-                    incorrect: this.state.score.incorrect + 1,
-                },
-            });
-        }
-        if (this.state.score.correct === 4) {
-            var unaEstrella = [
+        const result = this.state.gameWords[0].join().replaceAll(",", "");
+
+
+        if (this.state.textToRead === result) {
+            let unaEstrella = [
                 '<br><div className="vex-custom-field-wrapper"><label for="radio1" style="color:orange; font-size: 100px">★</label><label for="radio1" style="font-size: 100px;" >★</label><label for="radio1" style="font-size: 100px;">★</label></div>',
             ];
-            var dosEstrella = [
+            let dosEstrella = [
                 '<br><div className="vex-custom-field-wrapper"><label for="radio1" style="color:orange; font-size: 100px">★</label><label for="radio1" style="color:orange; font-size: 100px">★</label><label for="radio1" style="font-size: 100px;">★</label></div>',
             ];
-            var tresEstrella = [
+            let tresEstrella = [
                 '<br><div className="vex-custom-field-wrapper"><label for="radio1" style="color:orange; font-size: 100px">★</label><label for="radio1" style="color:orange; font-size: 100px">★</label><label for="radio1" style="color:orange; font-size: 100px">★</label></div>',
             ];
-            var estrellas;
+            let estrellas;
             if (this.state.score.incorrect > 2) {
                 estrellas = unaEstrella;
             } else {
@@ -125,15 +117,11 @@ export default class Game1 extends Component {
                 imageUrl:
                     "https://i.pinimg.com/originals/7a/55/bd/7a55bd283db2443f1761ebabff200bc6.gif",
                 showConfirmButton: false,
-                html: `Correctos: <b>${
-                    this.state.score.correct + 1
-                } puntos</b> <br> Incorrectos: <b>${
-                    this.state.score.incorrect
-                } puntos</b> ${estrellas}`,
+                html: `Correctos: <b> 1 punto</b> <br> Incorrectos: <b>${this.state.score.incorrect} puntos</b> ${estrellas}`,
             });
             axios
                 .post(`http://localhost:4000/api/activities`, {
-                    nombre: "Discriminacion auditiva 1",
+                    nombre: "Identificacion Visual 1",
                     correctas: this.state.score.correct,
                     incorrectas: this.state.score.incorrect,
                     idNino: localStorage.getItem("childrenId"),
@@ -145,17 +133,27 @@ export default class Game1 extends Component {
                 .catch((err) => {
                     console.error(err);
                 });
+            this.setState({redirect: "/games"});
         } else {
+            const options = this.state.initialOptions[0]
+                .map(obj => JSON.parse(JSON.stringify(obj)));
+            const newGameWords = [this.state.initialOptions[0].map(() => "")];
+
             await Swal.fire({
-                icon: alert.icon,
-                title: alert.title,
+                icon: "error",
+                title: "Intentalo de nuevo",
                 showConfirmButton: false,
                 timer: 1500,
             });
-        }
-
-        if (this.state.score.correct === 5) {
-            this.setState({redirect: "/games"});
+            this.setState({
+                score: {
+                    correct: this.state.score.correct,
+                    incorrect: this.state.score.incorrect + 1,
+                },
+                wordOptions: [options],
+                gameWords: [...newGameWords],
+                indexToComplete: 0
+            });
         }
     };
 
@@ -249,10 +247,13 @@ export default class Game1 extends Component {
                     />
                 </div>
                 <div className="flex-1 mt-3">
-                    <p className="font-luckiest-guy text-4xl sm:text-5xl text-white mb-6 text-center">
-                        Puntaje: {this.state.score.correct}
-                    </p>
-
+                    <div className="cards-list">
+                        <div>
+                            <img src={this.state.url} alt="Not found" width={350}/>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex-1 mt-3">
                     <CardsList
                         speakCallback={this.props.speakCallback}
                         options={this.state.wordOptions}
@@ -260,12 +261,6 @@ export default class Game1 extends Component {
                     />
 
                     <div className="text-center mt-8">
-                        <ActionButton
-                            icon="fas fa-check"
-                            color="bg-yellow-400"
-                            fontSize="text-4xl p-4"
-                            handleAnswer={this.validateAnswer}
-                        />
                         <br/>
                         <div className="inline-flex mt-12">{items}</div>
                         <i

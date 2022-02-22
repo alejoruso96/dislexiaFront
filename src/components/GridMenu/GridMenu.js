@@ -23,6 +23,9 @@ export default class GridMenu extends Component {
         <Link to="/game6" className="gmi-link">
           <GridMenuItem key="5" />
         </Link>
+        <Link to="/game7" className="gmi-link">
+          <GridMenuItem key="6" />
+        </Link>
       </ul>
     );
   }

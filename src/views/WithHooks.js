@@ -5,7 +5,7 @@ export const WithHooks = (Component) => {
     const {speak} = useSpeechSynthesis();
 
     const sayAnything = (anything) => {
-        speak({text: anything});
+        speak({text: anything.toLowerCase()});
     }
 
     return (props) => {
